@@ -1,8 +1,8 @@
 package com.wholemart.identity.service;
 
 import com.wholemart.common.exception.BusinessException;
-import com.wholemart.common.constants.BusinessConstants;
-import com.wholemart.common.constants.MessageConstants;
+import com.wholemart.identity.constants.IdentityConstants;
+import com.wholemart.identity.constants.IdentityMessages;
 import com.wholemart.common.constants.SecurityConstants;
 import com.wholemart.identity.dto.LoginResponse;
 import com.wholemart.identity.dto.RegisterRequest;
@@ -27,16 +27,16 @@ public class IdentityFacadeServiceImpl implements IdentityFacadeService {
     @Override public LoginResponse register(RegisterRequest request) { User user = users.register(request); return response(user); }
     @Override public LoginResponse login(String phone, String password) { return users.login(phone, password); }
     @Override public void sendOtp(String phone) {
-        String code = BusinessConstants.OTP_FORMAT.formatted(random.nextInt(BusinessConstants.OTP_VALUE_COUNT));
-        otps.put(phone, new Otp(code, Instant.now().plusSeconds(BusinessConstants.OTP_TTL_SECONDS)));
+        String code = IdentityConstants.OTP_FORMAT.formatted(random.nextInt(IdentityConstants.OTP_VALUE_COUNT));
+        otps.put(phone, new Otp(code, Instant.now().plusSeconds(IdentityConstants.OTP_TTL_SECONDS)));
         // Replace this development delivery log with an SMS provider before production.
-        log.info(MessageConstants.DEVELOPMENT_OTP_LOG, phone, code);
+        log.info(IdentityMessages.DEVELOPMENT_OTP_LOG, phone, code);
     }
     @Override public LoginResponse verifyOtp(String phone, String code) {
         Otp otp = otps.remove(phone);
-        if (otp == null || otp.expiresAt().isBefore(Instant.now()) || !java.security.MessageDigest.isEqual(otp.code().getBytes(), code.getBytes())) throw new BusinessException(MessageConstants.INVALID_OR_EXPIRED_OTP);
+        if (otp == null || otp.expiresAt().isBefore(Instant.now()) || !java.security.MessageDigest.isEqual(otp.code().getBytes(), code.getBytes())) throw new BusinessException(IdentityMessages.INVALID_OR_EXPIRED_OTP);
         User user = users.getByPhone(phone);
-        if (!user.isActive()) throw new BusinessException(MessageConstants.INACTIVE_USER);
+        if (!user.isActive()) throw new BusinessException(IdentityMessages.INACTIVE_USER);
         return response(user);
     }
     @Override public UserResponse currentUser(java.util.UUID id) { return mapper.toResponse(users.getById(id)); }

@@ -1,6 +1,7 @@
 package com.wholemart.merchant.entity;
 
 import com.wholemart.common.constants.ValidationConstants;
+import com.wholemart.merchant.constants.MerchantConstants;
 import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
@@ -15,9 +16,9 @@ public class Merchant {
     private UUID id;
     @Column(name = "user_id", nullable = false, updatable = false)
     private UUID userId;
-    @Column(nullable = false, length = ValidationConstants.MAX_BUSINESS_NAME_LENGTH)
+    @Column(nullable = false, length = MerchantConstants.MAX_BUSINESS_NAME_LENGTH)
     private String businessName;
-    @Column(length = ValidationConstants.GSTIN_LENGTH)
+    @Column(length = MerchantConstants.GSTIN_LENGTH)
     private String gstin;
     @Column(nullable = false, length = ValidationConstants.PHONE_LENGTH)
     private String phone;

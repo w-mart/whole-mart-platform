@@ -19,7 +19,7 @@ public class TokenService {
     private final byte[] key;
     private final ObjectMapper json;
     public TokenService(@Value(SecurityConstants.JWT_SECRET_PROPERTY) String secret, ObjectMapper json) {
-        if (secret.getBytes(StandardCharsets.UTF_8).length < SecurityConstants.JWT_MIN_SECRET_BYTES) throw new IllegalArgumentException(com.wholemart.common.constants.MessageConstants.JWT_SECRET_TOO_SHORT);
+        if (secret.getBytes(StandardCharsets.UTF_8).length < SecurityConstants.JWT_MIN_SECRET_BYTES) throw new IllegalArgumentException(SecurityConstants.JWT_SECRET_TOO_SHORT);
         this.key = secret.getBytes(StandardCharsets.UTF_8); this.json = json;
     }
     public long expiresInSeconds() { return BusinessConstants.ACCESS_TOKEN_TTL_SECONDS; }

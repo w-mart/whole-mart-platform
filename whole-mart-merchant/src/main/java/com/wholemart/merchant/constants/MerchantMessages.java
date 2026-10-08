@@ -7,5 +7,6 @@ public final class MerchantMessages {
     public static final String CREATED = "Merchant profile created";
     public static final String UPDATED = "Merchant profile updated";
     public static final String INVALID_PAGE_PARAMETERS = "page must be nonnegative and size must be between 1 and 100";
+    public static final String INVALID_PAGE_PARAMETERS = "page must be nonnegative and size must be between 1 and 100";
     private MerchantMessages() {}
 }

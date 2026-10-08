@@ -5,7 +5,8 @@ import com.wholemart.common.response.PageResponse;
 import com.wholemart.common.security.CurrentUser;
 import com.wholemart.common.constants.BusinessConstants;
 import com.wholemart.common.constants.ApiPathConstants;
-import com.wholemart.common.constants.MessageConstants;
+import com.wholemart.merchant.constants.MerchantMessages;
+import com.wholemart.merchant.constants.MerchantConstants;
 import com.wholemart.merchant.dto.CreateMerchantRequest;
 import com.wholemart.merchant.dto.MerchantResponse;
 import com.wholemart.merchant.dto.UpdateMerchantRequest;
@@ -31,7 +32,7 @@ public class MerchantController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse<MerchantResponse> create(@Valid @RequestBody CreateMerchantRequest request) {
-        return ApiResponse.success(merchants.create(CurrentUser.id(), request), MessageConstants.MERCHANT_CREATED);
+        return ApiResponse.success(merchants.create(CurrentUser.id(), request), MerchantMessages.CREATED);
     }
 
     @GetMapping(ApiPathConstants.MERCHANT_BY_ID)
@@ -45,8 +46,8 @@ public class MerchantController {
             @RequestParam(defaultValue = BusinessConstants.DEFAULT_PAGE_PARAMETER) int page,
             @RequestParam(defaultValue = BusinessConstants.DEFAULT_PAGE_SIZE_PARAMETER) int size) {
         if (page < BusinessConstants.DEFAULT_PAGE || size < BusinessConstants.MIN_PAGE_SIZE || size > BusinessConstants.MAX_PAGE_SIZE)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, MessageConstants.INVALID_PAGE_PARAMETERS);
-        var result = merchants.search(name, type, PageRequest.of(page, size, Sort.by("businessName").ascending()));
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, MerchantMessages.INVALID_PAGE_PARAMETERS);
+        var result = merchants.search(name, type, PageRequest.of(page, size, Sort.by(MerchantConstants.BUSINESS_NAME_SORT_FIELD).ascending()));
         return ApiResponse.success(new PageResponse<>(result.getContent(), result.getNumber(), result.getSize(),
                 result.getTotalElements(), result.getTotalPages(), result.isLast()));
     }
@@ -54,6 +55,6 @@ public class MerchantController {
     @PutMapping(ApiPathConstants.MERCHANT_BY_ID)
     public ApiResponse<MerchantResponse> update(@PathVariable UUID id,
             @Valid @RequestBody UpdateMerchantRequest request) {
-        return ApiResponse.success(merchants.update(CurrentUser.id(), id, request), MessageConstants.MERCHANT_UPDATED);
+        return ApiResponse.success(merchants.update(CurrentUser.id(), id, request), MerchantMessages.UPDATED);
     }
 }

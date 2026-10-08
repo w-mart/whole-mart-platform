@@ -2,6 +2,7 @@ package com.wholemart.identity.entity;
 
 import jakarta.persistence.*;
 import com.wholemart.common.constants.ValidationConstants;
+import com.wholemart.identity.constants.IdentityConstants;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ public class User {
     private String phone;
     @Column(nullable = false)
     private String passwordHash;
-    @Column(nullable = false, length = ValidationConstants.MAX_PERSON_NAME_LENGTH)
+    @Column(nullable = false, length = IdentityConstants.MAX_PERSON_NAME_LENGTH)
     private String fullName;
     @Column(nullable = false)
     private boolean active = true;
