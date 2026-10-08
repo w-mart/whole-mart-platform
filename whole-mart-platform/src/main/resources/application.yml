@@ -4,7 +4,7 @@ spring:
   messages:
     basename: messages/common/messages,messages/identity/messages,messages/merchant/messages,messages/catalog/messages,messages/cart/messages
   application:
-    name: whole-mart-platform
+    name: ${SPRING_APPLICATION_NAME:whole-mart-platform}
   jpa:
     open-in-view: false
 server:
