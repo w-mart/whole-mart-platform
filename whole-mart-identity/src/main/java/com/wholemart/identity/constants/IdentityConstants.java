@@ -5,6 +5,7 @@ import com.wholemart.common.constants.RoleConstants;
 public final class IdentityConstants {
     public static final String DEFAULT_USER_ROLE = RoleConstants.SHOPKEEPER;
     public static final int OTP_LENGTH = 6;
+    public static final String OTP_REGEX = "^\\d{" + OTP_LENGTH + "}$";
     public static final int OTP_VALUE_COUNT = 1_000_000;
     public static final String OTP_FORMAT = "%06d";
     public static final long OTP_TTL_SECONDS = 300;

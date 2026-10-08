@@ -1,15 +1,16 @@
 package com.wholemart.identity.entity;
 
 import jakarta.persistence.*;
+import com.wholemart.identity.constants.IdentityPersistenceConstants;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user_roles")
+@Table(name = IdentityPersistenceConstants.USER_ROLES_TABLE)
 public class UserRole {
     @EmbeddedId private Id id;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false) @MapsId("userId") private User user;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false) @MapsId("roleId") private Role role;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false) @MapsId(IdentityPersistenceConstants.USER_ID_ATTRIBUTE) private User user;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false) @MapsId(IdentityPersistenceConstants.ROLE_ID_ATTRIBUTE) private Role role;
     protected UserRole() {}
     public UserRole(User user, Role role) { this.user = user; this.role = role; this.id = new Id(user.getId(), role.getId()); }
     @Embeddable public static class Id implements Serializable {

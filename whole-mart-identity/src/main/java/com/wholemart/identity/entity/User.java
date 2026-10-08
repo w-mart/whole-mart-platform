@@ -3,11 +3,12 @@ package com.wholemart.identity.entity;
 import jakarta.persistence.*;
 import com.wholemart.common.constants.ValidationConstants;
 import com.wholemart.identity.constants.IdentityConstants;
+import com.wholemart.identity.constants.IdentityPersistenceConstants;
 import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "users", uniqueConstraints = @UniqueConstraint(name = "uk_users_phone", columnNames = "phone"))
+@Table(name = IdentityPersistenceConstants.USERS_TABLE, uniqueConstraints = @UniqueConstraint(name = IdentityPersistenceConstants.USER_PHONE_UNIQUE_CONSTRAINT, columnNames = IdentityPersistenceConstants.PHONE_COLUMN))
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

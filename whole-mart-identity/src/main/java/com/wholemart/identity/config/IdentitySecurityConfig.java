@@ -1,6 +1,7 @@
 package com.wholemart.identity.config;
 
 import com.wholemart.common.constants.ApiPathConstants;
+import com.wholemart.identity.constants.IdentityApiPaths;
 import com.wholemart.identity.security.BearerTokenFilter;
 import com.wholemart.identity.security.TokenService;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +19,7 @@ public class IdentitySecurityConfig {
     @Bean SecurityFilterChain securityFilterChain(HttpSecurity http, TokenService tokens) throws Exception {
         return http.csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth.requestMatchers(ApiPathConstants.AUTH + "/**", ApiPathConstants.ACTUATOR_HEALTH).permitAll().anyRequest().authenticated())
+            .authorizeHttpRequests(auth -> auth.requestMatchers(IdentityApiPaths.AUTH_WILDCARD, ApiPathConstants.ACTUATOR_HEALTH).permitAll().anyRequest().authenticated())
             .addFilterBefore(new BearerTokenFilter(tokens), UsernamePasswordAuthenticationFilter.class)
             .build();
     }

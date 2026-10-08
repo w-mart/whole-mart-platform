@@ -2,19 +2,20 @@ package com.wholemart.merchant.entity;
 
 import com.wholemart.common.constants.ValidationConstants;
 import com.wholemart.merchant.constants.MerchantConstants;
+import com.wholemart.merchant.constants.MerchantPersistenceConstants;
 import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "merchants", uniqueConstraints = {
-    @UniqueConstraint(name = "uk_merchants_user", columnNames = "user_id"),
-    @UniqueConstraint(name = "uk_merchants_gstin", columnNames = "gstin")
+@Table(name = MerchantPersistenceConstants.MERCHANTS_TABLE, uniqueConstraints = {
+    @UniqueConstraint(name = MerchantPersistenceConstants.USER_UNIQUE_CONSTRAINT, columnNames = MerchantPersistenceConstants.USER_ID_COLUMN),
+    @UniqueConstraint(name = MerchantPersistenceConstants.GSTIN_UNIQUE_CONSTRAINT, columnNames = MerchantPersistenceConstants.GSTIN_COLUMN)
 })
 public class Merchant {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(name = "user_id", nullable = false, updatable = false)
+    @Column(name = MerchantPersistenceConstants.USER_ID_COLUMN, nullable = false, updatable = false)
     private UUID userId;
     @Column(nullable = false, length = MerchantConstants.MAX_BUSINESS_NAME_LENGTH)
     private String businessName;

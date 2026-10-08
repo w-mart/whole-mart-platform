@@ -29,15 +29,15 @@ public class TokenService {
             String header = encoder.encodeToString(SecurityConstants.JWT_HEADER.getBytes(StandardCharsets.UTF_8));
             long now = Instant.now().getEpochSecond();
             String payload = encoder.encodeToString(json.writeValueAsBytes(Map.of(SecurityConstants.JWT_SUBJECT_CLAIM, userId.toString(), SecurityConstants.JWT_ISSUED_AT_CLAIM, now, SecurityConstants.JWT_EXPIRATION_CLAIM, now + BusinessConstants.ACCESS_TOKEN_TTL_SECONDS)));
-            String signingInput = header + "." + payload;
-            return signingInput + "." + encoder.encodeToString(sign(signingInput));
+            String signingInput = header + SecurityConstants.JWT_TOKEN_SEPARATOR + payload;
+            return signingInput + SecurityConstants.JWT_TOKEN_SEPARATOR + encoder.encodeToString(sign(signingInput));
         } catch (Exception exception) { throw new IllegalStateException(MessageConstants.ACCESS_TOKEN_ISSUE_FAILED, exception); }
     }
     public UUID verify(String token) {
         try {
-            String[] parts = token.split("\\.");
-            if (parts.length != 3) return null;
-            String input = parts[0] + "." + parts[1];
+            String[] parts = token.split(SecurityConstants.JWT_TOKEN_SPLIT_REGEX);
+            if (parts.length != SecurityConstants.JWT_TOKEN_PART_COUNT) return null;
+            String input = parts[0] + SecurityConstants.JWT_TOKEN_SEPARATOR + parts[1];
             if (!java.security.MessageDigest.isEqual(sign(input), Base64.getUrlDecoder().decode(parts[2]))) return null;
             Map<?, ?> claims = json.readValue(Base64.getUrlDecoder().decode(parts[1]), Map.class);
             if (!(claims.get(SecurityConstants.JWT_EXPIRATION_CLAIM) instanceof Number expires) || expires.longValue() <= Instant.now().getEpochSecond()) return null;
