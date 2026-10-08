@@ -7,7 +7,9 @@ Java 17 / Spring Boot multi-module backend. The root Maven project aggregates th
 - `whole-mart-common`: shared exceptions, API response types, constants, authenticated-user access, and utilities.
 - `whole-mart-identity`: user and role persistence, registration, password login, OTP verification, and bearer-token authentication.
 - `whole-mart-merchant`: authenticated merchant profile creation and updates, profile lookup, and paged search for active wholesalers/shopkeepers.
-- Catalog, cart, order, payment, ledger, delivery, and notification are present as Maven modules and follow the implementation roadmap; their business behavior has not been implemented yet.
+- `whole-mart-catalog`: product creation/search, merchant-specific product prices, and inventory quantities.
+- `whole-mart-cart`: authenticated carts with items from one wholesaler only, stock checks, quantity changes, and item removal.
+- Order, payment, ledger, delivery, and notification are present as Maven modules and follow the implementation roadmap; their business behavior has not been implemented yet.
 
 ## Run locally
 

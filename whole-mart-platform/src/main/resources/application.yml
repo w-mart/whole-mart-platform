@@ -1,20 +1,12 @@
 spring:
+  profiles:
+    default: dev
   messages:
-    basename: messages/common/messages,messages/identity/messages,messages/merchant/messages,messages/catalog/messages
+    basename: messages/common/messages,messages/identity/messages,messages/merchant/messages,messages/catalog/messages,messages/cart/messages
   application:
     name: whole-mart-platform
-  datasource:
-    url: jdbc:h2:mem:wholemart;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
   jpa:
-    hibernate:
-      ddl-auto: update
     open-in-view: false
-    properties:
-      hibernate:
-        format_sql: true
 server:
   port: 8080
 wholemart:
