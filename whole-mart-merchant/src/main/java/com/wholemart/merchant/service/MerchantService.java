@@ -10,7 +10,10 @@ import java.util.UUID;
 
 public interface MerchantService {
     MerchantResponse create(UUID userId, CreateMerchantRequest request);
+
     MerchantResponse get(UUID id);
+
     MerchantResponse update(UUID userId, UUID id, UpdateMerchantRequest request);
+
     Page<MerchantResponse> search(String name, MerchantType type, Pageable pageable);
 }

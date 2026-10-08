@@ -6,4 +6,5 @@ import java.time.Instant;
 import java.util.UUID;
 
 public record MerchantResponse(UUID id, UUID userId, String businessName, String gstin, String phone,
-                              MerchantType merchantType, MerchantStatus status, Instant createdAt) {}
+        MerchantType merchantType, MerchantStatus status, Instant createdAt) {
+}

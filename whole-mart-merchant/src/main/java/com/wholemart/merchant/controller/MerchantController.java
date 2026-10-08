@@ -2,6 +2,7 @@ package com.wholemart.merchant.controller;
 
 import com.wholemart.common.response.ApiResponse;
 import com.wholemart.common.response.PageResponse;
+import com.wholemart.common.message.MessageResolver;
 import com.wholemart.common.security.CurrentUser;
 import com.wholemart.common.constants.BusinessConstants;
 import com.wholemart.merchant.constants.MerchantApiPaths;
@@ -24,15 +25,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(MerchantApiPaths.MERCHANTS)
 public class MerchantController {
     private final MerchantService merchants;
+    private final MessageResolver messages;
 
-    public MerchantController(MerchantService merchants) {
+    public MerchantController(MerchantService merchants, MessageResolver messages) {
         this.merchants = merchants;
+        this.messages = messages;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse<MerchantResponse> create(@Valid @RequestBody CreateMerchantRequest request) {
-        return ApiResponse.success(merchants.create(CurrentUser.id(), request), MerchantMessages.CREATED);
+        return ApiResponse.success(merchants.create(CurrentUser.id(), request), messages.get(MerchantMessages.CREATED));
     }
 
     @GetMapping(MerchantApiPaths.BY_ID)
@@ -57,6 +60,6 @@ public class MerchantController {
     @PutMapping(MerchantApiPaths.BY_ID)
     public ApiResponse<MerchantResponse> update(@PathVariable UUID id,
             @Valid @RequestBody UpdateMerchantRequest request) {
-        return ApiResponse.success(merchants.update(CurrentUser.id(), id, request), MerchantMessages.UPDATED);
+        return ApiResponse.success(merchants.update(CurrentUser.id(), id, request), messages.get(MerchantMessages.UPDATED));
     }
 }

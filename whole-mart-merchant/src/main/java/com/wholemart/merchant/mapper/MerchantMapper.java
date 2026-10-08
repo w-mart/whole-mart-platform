@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class MerchantMapper {
     public MerchantResponse toResponse(Merchant merchant) {
-        return new MerchantResponse(merchant.getId(), merchant.getUserId(), merchant.getBusinessName(), merchant.getGstin(), merchant.getPhone(), merchant.getMerchantType(), merchant.getStatus(), merchant.getCreatedAt());
+        return new MerchantResponse(merchant.getId(), merchant.getUserId(), merchant.getBusinessName(),
+                merchant.getGstin(), merchant.getPhone(), merchant.getMerchantType(), merchant.getStatus(),
+                merchant.getCreatedAt());
     }
 }

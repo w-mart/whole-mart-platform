@@ -1,4 +1,6 @@
 spring:
+  messages:
+    basename: messages/common/messages,messages/identity/messages,messages/merchant/messages,messages/catalog/messages
   application:
     name: whole-mart-platform
   datasource:

@@ -9,7 +9,9 @@ public final class MerchantPersistenceConstants {
     public static final String SEARCH_NAME_PARAMETER = "name";
     public static final String SEARCH_TYPE_PARAMETER = "type";
     public static final String SEARCH_QUERY = "select m from Merchant m where m.status = com.wholemart.merchant.entity.MerchantStatus.ACTIVE "
-        + "and (:name is null or lower(m.businessName) like lower(concat('%', :name, '%'))) "
-        + "and (:type is null or m.merchantType = :type)";
-    private MerchantPersistenceConstants() {}
+            + "and (:name is null or lower(m.businessName) like lower(concat('%', :name, '%'))) "
+            + "and (:type is null or m.merchantType = :type)";
+
+    private MerchantPersistenceConstants() {
+    }
 }

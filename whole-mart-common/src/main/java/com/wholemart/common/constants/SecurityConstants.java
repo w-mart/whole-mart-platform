@@ -14,6 +14,6 @@ public final class SecurityConstants {
     public static final String JWT_TOKEN_SPLIT_REGEX = "\\.";
     public static final int JWT_TOKEN_PART_COUNT = 3;
     public static final int JWT_MIN_SECRET_BYTES = 32;
-    public static final String JWT_SECRET_TOO_SHORT = "JWT secret must be at least 32 bytes";
+    public static final String JWT_SECRET_TOO_SHORT = "common.error.jwt-secret-too-short";
     private SecurityConstants() {}
 }

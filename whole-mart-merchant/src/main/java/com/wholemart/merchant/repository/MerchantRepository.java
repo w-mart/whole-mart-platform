@@ -13,10 +13,12 @@ import org.springframework.data.repository.query.Param;
 
 public interface MerchantRepository extends JpaRepository<Merchant, UUID> {
     boolean existsByUserId(UUID userId);
+
     boolean existsByGstin(String gstin);
+
     Optional<Merchant> findByIdAndUserId(UUID id, UUID userId);
+
     @Query(MerchantPersistenceConstants.SEARCH_QUERY)
     Page<Merchant> search(@Param(MerchantPersistenceConstants.SEARCH_NAME_PARAMETER) String name,
-                          @Param(MerchantPersistenceConstants.SEARCH_TYPE_PARAMETER) MerchantType type,
-                          Pageable pageable);
+            @Param(MerchantPersistenceConstants.SEARCH_TYPE_PARAMETER) MerchantType type, Pageable pageable);
 }

@@ -1,3 +1,5 @@
 package com.wholemart.merchant.entity;
 
-public enum MerchantType { WHOLESALER, SHOPKEEPER }
+public enum MerchantType {
+    WHOLESALER, SHOPKEEPER
+}
